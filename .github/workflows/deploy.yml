@@ -29,8 +29,10 @@ jobs:
       - name: Deploy Observability Stack
         run: |
             mkdir -p ~/monitoring_setup_deploy
-            cp docker-compose.yml prometheus.yml promtail-config.yml ~/monitoring_setup_deploy/docker-compose.yml
-            
+            # cp docker-compose.yml prometheus.yml promtail-config.yml ~/monitoring_setup_deploy/docker-compose.yml
+            cp docker-compose.yml ~/monitoring_setup_deploy/docker-compose.yml
+            cp prometheus.yml ~/monitoring_setup_deploy/prometheus.yml
+            cp promtail-config.yml ~/monitoring_setup_deploy/promtail-config.yml
             cd ~/monitoring_setup_deploy
             docker compose up -d --remove-orphans
 
