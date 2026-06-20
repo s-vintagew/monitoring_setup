@@ -1,0 +1,34 @@
+name: SRE Observability Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate-configs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate configuration files
+        uses: docker://prom/prometheus:latest
+        with:
+          args: check config prometheus.yml
+
+  # ===== CD Phase: Deploy to Fedora Host =====
+  deploy:
+    runs-on: self-hosted
+    needs: validate-configs
+    steps:
+      - name: Deploy to Fedora Host via SSH
+        uses: appleboy/ssh-action@v0.1.5
+
+      - name: Deploy Observability Stack
+        run: |
+            cp docker-compose.yml prometheus.yml promtail-config.yml ~/monitoring_setup/docker-compose.yml
+            
+            cd ~/monitoring_setup
+            docker compose up -d --remove-orphans
+

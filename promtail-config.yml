@@ -1,0 +1,16 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: apache_logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: apache_access_logs
+          # This is the standard path for Fedora/RHEL Apache logs
+          __path__: /var/log/httpd/access_log

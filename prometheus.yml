@@ -1,0 +1,43 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'host_metrics'
+    static_configs:
+      - targets: ['node_exporter:9100']
+        labels:
+          instance: 'file-server'
+
+# Apache HTTPD Metrics
+  - job_name: 'apache'
+    static_configs:
+      - targets: ['apache_exporter:9117']
+        labels:
+          service: 'web-proxy'
+
+  # qBittorrent Metrics
+  - job_name: 'qbittorrent'
+    static_configs:
+      - targets: ['qbittorrent_exporter:8081']
+        labels:
+          service: 'torrent-client'
+
+  # yt-dlp Uptime & Latency Probes
+  - job_name: 'blackbox_ytdlp'
+    metrics_path: /probe
+    params:
+      module: [http_2xx] # Expect an HTTP 200 OK response
+    static_configs:
+      - targets:
+        - http://host.docker.internal:8000 
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox_exporter:9115
