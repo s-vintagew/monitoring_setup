@@ -24,7 +24,7 @@ jobs:
     needs: validate-configs
     steps:
       - name: Deploy to Fedora Host via SSH
-        uses: appleboy/ssh-action@v0.1.5
+        uses: action-ssh/ssh-deploy@v4
 
       - name: Deploy Observability Stack
         run: |
