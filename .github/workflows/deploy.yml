@@ -24,7 +24,7 @@ jobs:
     needs: validate-configs
     steps:
       - name: Checkout Code
-        uses: action/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Deploy Observability Stack
         run: |
