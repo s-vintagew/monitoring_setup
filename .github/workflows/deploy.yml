@@ -15,6 +15,7 @@ jobs:
       - name: Validate configuration files
         uses: docker://prom/prometheus:latest
         with:
+          entrypoint: /bin/promtool
           args: check config prometheus.yml
 
   # ===== CD Phase: Deploy to Fedora Host =====
