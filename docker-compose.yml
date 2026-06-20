@@ -5,7 +5,7 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     volumes:
-      - /var/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - /var/prometheus/prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -55,8 +55,8 @@ services:
       - QBITTORRENT_HOST=host.docker.internal
       - QBITTORRENT_PORT=8080
       # IMPORTANT: If your qBittorrent WebUI requires a password, uncomment and fill these in:
-      # - QBITTORRENT_USERNAME=vintage
-      # - QBITTORRENT_PASSWORD='Wizard@123'
+      # - QBITTORRENT_USERNAME=<username>
+      # - QBITTORRENT_PASSWORD=<password>
       - EXPORTER_PORT=8081
     extra_hosts:
       - "host.docker.internal:host-gateway"
