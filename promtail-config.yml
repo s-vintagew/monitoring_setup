@@ -15,3 +15,27 @@ scrape_configs:
           job: apache_access_logs
           # This is the standard path for Fedora/RHEL Apache logs
           __path__: /var/log/httpd/access_log
+
+  - job_name: system_secure
+    static_configs:
+    - targets:
+        - host.docker.internal
+      labels:
+        job: varlogs_secure
+        __path__: /var/log/secure
+
+  - job_name: system_messages
+    static_configs:
+    - targets:
+        - host.docker.internal
+      labels:
+        job: varlogs_messages
+        __path__: /var/log/messages
+
+  - job_name: system_dnf
+    static_configs:
+    - targets:
+        - host.docker.internal
+      labels:
+        job: varlogs_dnf
+        __path__: /var/log/dnf5.log

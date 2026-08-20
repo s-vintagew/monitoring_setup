@@ -84,7 +84,7 @@ services:
     container_name: promtail
     user: root
     volumes:
-      - /var/log/httpd:/var/log/httpd:ro # Maps your host's Apache logs into the container
+      - /var/log:/var/log:ro # Maps your host's Apache logs into the container
       - ./promtail-config.yml:/etc/promtail/config.yml:ro
     command: -config.file=/etc/promtail/config.yml
     restart: unless-stopped
