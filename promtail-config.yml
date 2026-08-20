@@ -9,7 +9,8 @@ scrape_configs:
   - job_name: apache_logs
     static_configs:
       - targets:
-          - localhost
+          #- localhost
+          - host.docker.internal
         labels:
           job: apache_access_logs
           # This is the standard path for Fedora/RHEL Apache logs
