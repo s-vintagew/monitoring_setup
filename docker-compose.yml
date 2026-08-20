@@ -76,6 +76,7 @@ services:
       - "3100:3100"
     volumes:
       - /var/loki:/loki
+      - ./loki-config.yml:/etc/loki/loki-config.yaml:ro
     restart: unless-stopped
 
   promtail:

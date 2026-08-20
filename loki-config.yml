@@ -1,0 +1,2 @@
+limits_config:
+  wal_disk_usage_threshold: 0.99 # Increases threshold to 99%
