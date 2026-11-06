@@ -34,6 +34,5 @@ jobs:
             #cp docker-compose.yml ~/monitoring_setup_deploy/docker-compose.yml
             #cp prometheus.yml ~/monitoring_setup_deploy/prometheus.yml
             #cp promtail-config.yml ~/monitoring_setup_deploy/promtail-config.yml
-            #cd ~/monitoring_setup_deploy
-            docker compose up -d --remove-orphans
+            docker compose --project-directory ~/monitoring_setup_deploy up -d --remove-orphans
 
