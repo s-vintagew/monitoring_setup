@@ -89,6 +89,25 @@ services:
     command: -config.file=/etc/promtail/config.yml
     restart: unless-stopped
 
+  # Homelab copy of VintageStream. The app repo keeps a standalone compose for
+  # single-service installs; this file is what this machine runs.
+  vintagestream:
+    image: ghcr.io/s-vintagew/local-streaming-application:latest
+    container_name: vintagestream
+    restart: unless-stopped
+    env_file:
+      - /home/vintage/monitoring_setup_deploy/vintagestream.env
+    environment:
+      - PORT=6000
+      - MEDIA_PATH=/media
+      - SUB_CACHE_DIR=/tmp/vintagestream-subs
+    ports:
+      - "5173:6000"
+    volumes:
+      - /home/vintage/File_server:/media:ro
+      - /tmp/vintage-thumb:/app/server/public/thumbnails
+      - /tmp/vintage-subs:/tmp/vintagestream-subs
+
 # volumes:
 #   /var/prometheus/prometheus_data:
 #   /var/grafana_data:
