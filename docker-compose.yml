@@ -93,6 +93,9 @@ services:
   # single-service installs; this file is what this machine runs.
   vintagestream:
     image: ghcr.io/s-vintagew/local-streaming-application:latest
+    # :latest is already present locally after the first deploy. Always pull so a
+    # newly published digest replaces the running container.
+    pull_policy: always
     container_name: vintagestream
     restart: unless-stopped
     env_file:

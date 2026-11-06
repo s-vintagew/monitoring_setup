@@ -56,4 +56,4 @@ The automated CI/CD pipeline is built with strict pre-deployment checks to preve
 2. **Workspace Synchronization:** 
    Utilizes `actions/checkout@v4` to pull the verified repository files into the runner's isolated workspace.
 3. **Zero-Downtime Deployment:** 
-   The pipeline securely copies the validated files into the production directory (`~/monitoring_setup_deploy`) and executes `docker compose up -d --remove-orphans`, smoothly restarting only the containers whose configurations have changed.
+   The pipeline securely copies the validated files into the production directory (`~/monitoring_setup_deploy`), pulls `vintagestream` so the local `:latest` tag matches GHCR, then executes `docker compose up -d --remove-orphans`. Compose recreates a container when its image digest or configuration changed.
